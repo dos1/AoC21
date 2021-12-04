@@ -1,18 +1,13 @@
 from itertools import filterfalse
 SIZE=5
 
+boards=[]
 with open("inputday4") as f:
   numbers=f.readline().strip().split(',')
   f.readline()
-  boards=[]
   while True:
-    board = []
-    for i in range(SIZE):
-      line = f.readline()
-      board.append([(x, False) for x in line.split()])
-    boards.append(board)
-    line = f.readline()
-    if not line:
+    boards.append([[(x, False) for x in f.readline().split()] for i in range(SIZE)])
+    if not f.readline():
       break
 
 results = []
