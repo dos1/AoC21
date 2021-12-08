@@ -1,5 +1,4 @@
-L=[[[*map(sorted,a.split())]for a in l.split('|')]for l in open("inputday8")]
-z=lambda a,b:len([c for c in a if c in b])==len(a)
+L,z=[[[*map(sorted,a.split())]for a in l.split('|')]for l in open("inputday8")],lambda a,b:[c for c in a if c in b]==a
 def C(l):
  *d,=map(len,l);S=[0]*10;X=lambda L:[a for a in l if len(a)==L]
  for i in(a:={2:1,3:7,4:4,7:8}).keys():S[a[i]]=l[d.index(i)]
