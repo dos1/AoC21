@@ -6,4 +6,4 @@ def C(l):
  for e in X(6):S[[[6,0][z(S[1],e)],9][z(S[4],e)]]=e
  for e in X(5):S[[[2,5][z(e,S[6])],3][z(S[1],e)]]=e
  return S
-print(sum([int("".join([str(C(l).index(a))for a in w]))for l,w in L]))
+print(sum([*"".join(o:=["".join([str(C(l).index(a))for a in w])for l,w in L])].count(str(i))for i in(1,4,7,8)),sum(map(int,o)))
