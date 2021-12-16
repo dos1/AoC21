@@ -1,4 +1,4 @@
-d="".join(["0"*(4-len(b:=bin(int(i,16))[2:]))+b for i in open("inputday16").read().strip()])
+d=bin(int(x:=open("inputday16").read()[:-1],16))[2:].zfill(len(x)*4)
 C,I=lambda d,n:(d[:n],d[n:]),lambda d,n:(int((D:=C(d,n))[0],2),D[1])
 def m(v):
  p=1
