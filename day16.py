@@ -7,9 +7,8 @@ def m(v):
 def P(d):
  v,d=I(d,3);t,d=I(d,3)
  if t==4:
-  n="";p,d=I(d,1)
-  while p:N,d=C(d,4);n+=N;p,d=I(d,1)
-  N,d=C(d,4);n+=N
+  n,p="",1
+  while p:p,d=I(d,1);N,d=C(d,4);n+=N
   return int(n,2),v,d
  S=[];L,d=I(d,1)
  if L:
