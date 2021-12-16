@@ -16,6 +16,6 @@ def P(d):
   for i in range(l):V,Z,d=P(d);S+=[V];v+=Z
  else:
   l,d=I(d,15);s,d=C(d,l)
-  while len(s)and int(s,2):V,Z,s=P(s);S+=[V];v+=Z
+  while len(s)and int(s):V,Z,s=P(s);S+=[V];v+=Z
  return[sum,m,min,max,4,lambda x:x[0]>x[1],lambda x:x[0]<x[1],lambda x:x[0]==x[1]][t](S),v,d
 print((x:=P(d))[1],x[0])
