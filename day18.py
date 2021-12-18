@@ -69,7 +69,7 @@ class Node:
     if not splt: return False
     splt.pair = True
     splt.left = Node(splt.val // 2, splt)
-    splt.right = Node(-int((-splt.val / 2) // 1), splt)
+    splt.right = Node(splt.val - splt.val // 2, splt)
     return True
 
   def reduce(self):
