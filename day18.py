@@ -1,3 +1,4 @@
+# WARNING: this uses `eval`, don't run it on untrusted inputs
 class Node:
   def __init__(self, value, parent = None):
     self.parent = parent
