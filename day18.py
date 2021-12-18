@@ -85,10 +85,8 @@ class Node:
     if not self.pair: return self.val
     return 3 * self.left.magnitude() + 2 * self.right.magnitude()
 
-  @staticmethod
-  def add(node1, node2):
-    return Node([node1, node2]).reduce()
+  def __add__(self, node2):
+    return Node([self, node2]).reduce()
 
-roots = [*map(Node,lines)]; result = roots[0]
-for i in range(1, len(roots)): result = Node.add(result, roots[i])
-print(result.magnitude(), max([Node.add(roots[i], roots[j]).magnitude() for i in range(len(roots)) for j in range(len(roots)) if i != j]))
+nodes=[*map(Node,lines)]
+print(sum(nodes[1:],nodes[0]).magnitude(),max([(nodes[i]+nodes[j]).magnitude() for i in range(len(nodes)) for j in range(len(nodes)) if i!=j]))
