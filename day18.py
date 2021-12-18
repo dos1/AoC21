@@ -1,5 +1,3 @@
-lines=[*map(eval,open("inputday18"))]
-
 class Node:
   def __init__(self, value, parent = None):
     self.parent = parent
@@ -88,5 +86,5 @@ class Node:
   def __add__(self, node2):
     return Node([self, node2]).reduce()
 
-nodes=[*map(Node,lines)]
+nodes=[*map(Node,map(eval,open("inputday18")))]
 print(sum(nodes[1:],nodes[0]).magnitude(),max([(nodes[i]+nodes[j]).magnitude() for i in range(len(nodes)) for j in range(len(nodes)) if i!=j]))
