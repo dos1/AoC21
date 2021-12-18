@@ -87,4 +87,4 @@ class Node:
     return Node([self, node2]).reduce()
 
 nodes=[*map(Node,map(eval,open("inputday18")))]
-print(sum(nodes[1:],nodes[0]).magnitude(),max([(nodes[i]+nodes[j]).magnitude() for i in range(len(nodes)) for j in range(len(nodes)) if i!=j]))
+print(sum(nodes[1:],nodes[0]).magnitude(),max([(i+j).magnitude() for i in nodes for j in nodes if i!=j]))
