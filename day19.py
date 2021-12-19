@@ -1,4 +1,4 @@
-lines = [[[tuple(int(v) for v in l.split(',')), set()] for l in l[1:]] for l in [l.strip().split('\n') for l in open("inputday19").read().split('\n\n')]]
+lines = [[[tuple(int(v)for v in l.split(',')),set()]for l in l[1:]]for l in[l.strip().split('\n')for l in open("inputday19").read().split('\n\n')]]
 
 def distance(p1, p2):
   return sum([(p1[i] - p2[i])**2 for i in range(3)]) ** (1/2)
