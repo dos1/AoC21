@@ -45,7 +45,7 @@ def apply_orientation(p, o):
           p[0] * o[1][0] + p[1] * o[1][1] + p[2] * o[1][2],
           p[0] * o[2][0] + p[1] * o[2][1] + p[2] * o[2][2])
 
-triple=lambda x:((x,0,0),(0,x,0),(0,0,x)); triples=[*triple(-1),*triple(1)]
+triples=((1,0,0),(0,1,0),(0,0,1),(-1,0,0),(0,-1,0),(0,0,-1))
 orientations = [(x,y,z) for x in triples for y in triples for z in triples if determinant((x,y,z)) == 1]
 
 beaconmap = {}
