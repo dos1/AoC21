@@ -31,11 +31,11 @@ class Node:
     return self.left.findSplit() or self.right.findSplit()
 
   def firstValL(self):
-    if self.pair: return self.left.firstValL() or self.right.firstValL()
+    if self.pair: return self.left.firstValL()
     return self
 
   def firstValR(self):
-    if self.pair: return self.right.firstValR() or self.left.firstValR()
+    if self.pair: return self.right.firstValR()
     return self
 
   @staticmethod
