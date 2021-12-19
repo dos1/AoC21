@@ -70,12 +70,12 @@ for b,vals in beaconmap.items():
 
 while len([*filter(lambda x:x[0]==0, transforms)]) < len(lines) - 1:
   for b in range(len(lines)):
-    for i,val1 in enumerate(lines):
-      for j,val in enumerate(lines):
+    for i in range(len(lines)):
+      for j in range(len(lines)):
         if i == j or b == j: continue
-        if (rel1 := transforms.get((b,i))) and not transforms.get((b,j)) and (rel2 := transforms.get((i, j))):
+        if (rel1 := transforms.get((b,i))) and not (b,j) in transforms and (rel2 := transforms.get((i, j))):
           transforms[(b,j)] = [*rel2, *rel1]
-        if (rel1 := transforms.get((b,i))) and not transforms.get((b,j)) and (rel2 := transforms.get((j, i))):
+        if (rel1 := transforms.get((b,i))) and not (b,j) in transforms and (rel2 := transforms.get((j, i))):
           transforms[(b,j)] = [*[(apply_orientation(minus(v[0]), inv := inverse(v[1])), inv) for i,v in enumerate(reversed(rel2))], *rel1]
 
 positions = {}
