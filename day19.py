@@ -65,7 +65,7 @@ for b,vals in beaconmap.items():
       s.add(distance(val[0], apply_orientation(val[1],o)))
     if len(s) == 1:
       A, B = val[0], apply_orientation(val[1],o)
-      transforms[b] = [((A[0]-B[0], A[1]-B[1], A[2]-B[2]), o)]
+      transforms[b] = [(add(A,minus(B)), o)]
       break
 
 while len([*filter(lambda x:x[0]==0, transforms)]) < len(lines) - 1:
@@ -92,4 +92,4 @@ for i in range(1, len(lines)):
     points.add(point)
   positions[i] = testpoint
 
-print(len(points), max([abs(i[0]-j[0])+abs(i[1]-j[1])+abs(i[2]-j[2]) for i in positions.values() for j in positions.values()]))
+print(len(points), max([sum(map(abs,add(i,minus(j)))) for i in positions.values() for j in positions.values()]))
