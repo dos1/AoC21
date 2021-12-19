@@ -1,12 +1,11 @@
-lines = [[[tuple(int(v)for v in l.split(',')),set()]for l in l[1:]]for l in[l.strip().split('\n')for l in open("inputday19").read().split('\n\n')]]
+lines = [[[tuple(int(v)for v in l.split(','))]for l in l[1:]]for l in[l.strip().split('\n')for l in open("inputday19").read().split('\n\n')]]
 
 def distance(p1, p2):
   return sum([(p1[i] - p2[i])**2 for i in range(3)]) ** (1/2)
 
 for scanner in lines:
-  for probe in scanner:
-    for probe2 in scanner:
-      probe[1].add(distance(probe[0], probe2[0]))
+  for beacon1 in scanner:
+    beacon1.append({distance(beacon1[0], beacon2[0]) for beacon2 in scanner})
 
 def determinant(m):
   det = 0
@@ -53,8 +52,7 @@ for i in range(len(lines)):
   for j in range(i+1, len(lines)):
     for beacon1 in lines[i]:
       for beacon2 in lines[j]:
-        com = len(beacon1[1] & beacon2[1])
-        if com >= 12:
+        if len(beacon1[1] & beacon2[1]) >= 12:
           beaconmap.setdefault((i, j), set()).add((beacon1[0], beacon2[0]))
 
 transforms = {}
@@ -76,12 +74,9 @@ while len([*filter(lambda x:x[0]==0, transforms)]) < len(lines) - 1:
         if (rel1 := transforms.get((b,i))) and not (b,j) in transforms and (rel2 := transforms.get((i, j))):
           transforms[(b,j)] = [*rel2, *rel1]
         if (rel1 := transforms.get((b,i))) and not (b,j) in transforms and (rel2 := transforms.get((j, i))):
-          transforms[(b,j)] = [*[(apply_orientation(minus(v[0]), inv := inverse(v[1])), inv) for i,v in enumerate(reversed(rel2))], *rel1]
+          transforms[(b,j)] = [*[(apply_orientation(minus(v[0]), inv := inverse(v[1])), inv) for v in reversed(rel2)], *rel1]
 
-positions = {}
-points = set()
-for p in lines[0]:
-  points.add(p[0])
+points, positions = {p[0] for p in lines[0]}, []
 for i in range(1, len(lines)):
   for p in lines[i]:
     testpoint = (0,0,0)
@@ -90,6 +85,6 @@ for i in range(1, len(lines)):
       testpoint = add(trans[0], apply_orientation(testpoint, trans[1]))
       point = add(trans[0], apply_orientation(point, trans[1]))
     points.add(point)
-  positions[i] = testpoint
+  positions.append(testpoint)
 
-print(len(points), max([sum(map(abs,add(i,minus(j)))) for i in positions.values() for j in positions.values()]))
+print(len(points), max([sum(map(abs,add(i,minus(j)))) for i in positions for j in positions]))
