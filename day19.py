@@ -3,10 +3,6 @@ lines = [[[tuple(int(v)for v in l.split(','))]for l in l[1:]]for l in[l.strip().
 def distance(p1, p2):
   return sum([(p1[i] - p2[i])**2 for i in range(3)]) ** (1/2)
 
-for scanner in lines:
-  for beacon1 in scanner:
-    beacon1.append({distance(beacon1[0], beacon2[0]) for beacon2 in scanner})
-
 def determinant(m):
   det = 0
   for i in range(3):
@@ -43,6 +39,10 @@ def apply_orientation(p, o):
   return (p[0] * o[0][0] + p[1] * o[0][1] + p[2] * o[0][2],
           p[0] * o[1][0] + p[1] * o[1][1] + p[2] * o[1][2],
           p[0] * o[2][0] + p[1] * o[2][1] + p[2] * o[2][2])
+
+for scanner in lines:
+  for beacon1 in scanner:
+    beacon1.append({distance(beacon1[0], beacon2[0]) for beacon2 in scanner})
 
 triples=((1,0,0),(0,1,0),(0,0,1),(-1,0,0),(0,-1,0),(0,0,-1))
 orientations = [(x,y,z) for x in triples for y in triples for z in triples if determinant((x,y,z)) == 1]
