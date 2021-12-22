@@ -11,5 +11,5 @@ def intersects(a, b):
 cuboids = []; fivties = ((-50, 50), (-50, 50), (-50, 50))
 for line in lines:
   intersections = [*[tuple([*intersect(cuboid, line), not cuboid[3]]) for cuboid in cuboids if intersects(line, cuboid)]]
-  cuboids.extend([line, *intersections] if line[3] else intersections)
+  cuboids += [line, *intersections] if line[3] else intersections
 print(*(sum(countCubes(transform(cuboid)) * [-1,1][cuboid[3]] for cuboid in cuboids) for transform in [lambda x:intersect(x, fivties), lambda x:x]))
