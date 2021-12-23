@@ -86,9 +86,9 @@ def canMove(data, x, y):
 def moveCost(data, x, y, i, j):
   return ((y - 1) + abs(x - i)  + (j - 1)) * typeCost[field(data, x,y)]
 
-def move(data, x, y, i, j):
-  newData = tuple(tuple(field(data, i,j) if a==x and b==y else (field(data, x, y) if a==i and b==j else field(data, a,b)) for a in range(len(data[b]))) for b in range(len(data)))
-  return (newData, moveCost(data, x, y, i, j))
+def move(d, x, y, i, j):
+  newData = (*((*(((field(d,a,b),field(d,x,y))[a==i and b==j],field(d,i,j))[a==x and b==y] for a in range(len(d[b]))),) for b in range(len(d))),)
+  return (newData, moveCost(d, x, y, i, j))
 
 cache = {}
 
