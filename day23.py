@@ -109,7 +109,7 @@ def checkState(state, cache):
         if hasRoomAvailable(state, x, y) and isPathEmpty(state, x, room):
           newState, newCost = move(state, x, y, room, moveinPos(state, room))
           cost = checkState(newState, cache)
-          if cost >= 0:
+          if cost != -1:
             costs.append(cost + newCost)
         elif isInAnyRoom(state, x, y):
           for i in stoppableFields(state):
@@ -117,12 +117,9 @@ def checkState(state, cache):
               continue
             newState, newCost = move(state, x, y, i, 1)
             cost = checkState(newState, cache)
-            if cost >= 0:
+            if cost != -1:
               costs.append(cost + newCost)
-  result = -1
-  if costs:
-    result = min(costs)
-  cache[state] = result
-  return result
+  cache[state] = min(costs) if costs else -1
+  return cache[state]
 
 print(checkState(data, {}), checkState(extend(data), {}))
