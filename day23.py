@@ -31,7 +31,9 @@ def isRoomComplete(data, x):
   return True
 
 def roomsComplete(data):
-  return isRoomComplete(data,3) and isRoomComplete(data,5) and isRoomComplete(data,7) and isRoomComplete(data,9)
+  for room in rooms.values():
+    if not isRoomComplete(data, room): return False
+  return True
 
 def isAmphipod(data, x, y):
   val = field(data, x, y)
@@ -45,12 +47,6 @@ def isRoomEmpty(data, x):
     if not isEmpty(data, x, y):
       return False
   return True
-
-def isBlockingRoom(data, x, y):
-  for j in range(y+1, 2+roomSize(data)):
-    if isAmphipod(data, x, j) and not isInOwnRoom(data, x, j):
-      return True
-  return False
 
 def hasRoomAvailable(data, x, y):
   amphipod = field(data, x, y)
@@ -71,6 +67,12 @@ def isPathEmpty(data, x, targetX):
       return False
   return True
 
+def isBlockingRoom(data, x, y):
+  for j in range(y+1, 2+roomSize(data)):
+    if isAmphipod(data, x, j) and not isInOwnRoom(data, x, j):
+      return True
+  return False
+
 def isBlockedInRoom(data, x, y):
   if y < 3: return False
   return not isEmpty(data, x, y-1)
@@ -90,9 +92,7 @@ def move(d, x, y, i, j):
   newData = (*((*(((field(d,a,b),field(d,x,y))[a==i and b==j],field(d,i,j))[a==x and b==y] for a in range(len(d[b]))),) for b in range(len(d))),)
   return (newData, moveCost(d, x, y, i, j))
 
-cache = {}
-
-def checkState(data):
+def checkState(data, cache):
   cached = cache.get(data)
   if cached is not None:
     return cached
@@ -108,7 +108,7 @@ def checkState(data):
         room = rooms[amphipod]
         if hasRoomAvailable(data, x, y) and isPathEmpty(data, x, room):
           d, c = move(data, x, y, room, moveinPos(data, room))
-          cost = checkState(d)
+          cost = checkState(d, cache)
           if cost >= 0:
             costs.append(c + cost)
         elif isInAnyRoom(data, x, y):
@@ -116,7 +116,7 @@ def checkState(data):
             if not isPathEmpty(data, x, i):
               continue
             d, c = move(data, x, y, i, 1)
-            cost = checkState(d)
+            cost = checkState(d, cache)
             if cost >= 0:
               costs.append(c + cost)
   result = -1
@@ -125,4 +125,4 @@ def checkState(data):
   cache[data] = result
   return result
 
-print(checkState(lines), checkState(extend(lines)))
+print(checkState(lines, {}), checkState(extend(lines), {}))
